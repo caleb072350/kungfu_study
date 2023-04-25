@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "chrono": "cpp",
+        "ctime": "cpp",
+        "cwchar": "cpp",
+        "iomanip": "cpp",
+        "xlocinfo": "cpp",
+        "xloctime": "cpp"
+    }
+}
