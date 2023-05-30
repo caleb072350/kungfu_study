@@ -41,9 +41,10 @@ private:
     {
         return frame.getStatus();
     }
+
 public:
     //** get page buffer */
-    inline void* getBuffer() {return buffer; }
+    inline void* getBuffer() { return buffer; }
     /** get current page number */
     inline short getPageNum() { return pageNum; }
 
@@ -74,7 +75,7 @@ inline bool Page::isAtPageEnd() const
     return getCurStatus() == JOURNAL_FRAME_STATUS_PAGE_END;
 }
 
-inline bool Page::passFrame() {
+inline void Page::passFrame() {
     position += frame.next();
     frameNum += 1;
 }
@@ -99,7 +100,7 @@ inline void* Page::locateWritableFrame()
 
 inline void* Page::locateReadableFrame()
 {
-    retrun (getCurStatus() == JOURNAL_FRAME_STATUS_WRITTEN) ? frame.get_address() : nullptr;
+    return (getCurStatus() == JOURNAL_FRAME_STATUS_WRITTEN) ? frame.get_address() : nullptr;
 }
 
 YJJ_NAMESPACE_END

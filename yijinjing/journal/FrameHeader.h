@@ -3,9 +3,6 @@
  * Provide necessary information for frame.
 */
 
-//#define __FRAME_HEADER_VERSION__ 1
-// changes: 1. type of error_id from short to int
-//             some gateway's error_id is too big for short to handle
 #define __FRAME_HEADER_VERSION__ 2
 
 #ifndef YIJINJING_FRAMEHEADER_H
@@ -68,7 +65,7 @@ struct  FrameHeader
      * =0 if not error and no errorMsg,
      * !=0 means some info in errorMsg
     */
-   FH_TYPE_ERR_ID err_id;
+    FH_TYPE_ERR_ID err_id;
 } __attribute__((packed));
 
 /** length of frame header */

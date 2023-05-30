@@ -246,7 +246,7 @@ inline void Frame::setErrorData(FH_TYPE_ERR_ID err_id, const char* errorMsg, con
     } else {
         frame->err_id = err_id;
         char* errorMsgStartAddr = (char*)ADDRESS_ADD(frame, BASIC_FRAME_HEADER_LENGTH);
-        strncpy(errorMsgStartAddr, errorMsg, datalen);
+        strncpy(errorMsgStartAddr, errorMsg, ERROR_MSG_MAX_LENGTH - 1);
         errorMsgStartAddr[ERROR_MSG_MAX_LENGTH - 1] = '\0';
         memcpy(ADDRESS_ADD(frame, ERROR_FRAME_HEADER_LENGTH), data, datalen);
         setFrameLength(ERROR_FRAME_HEADER_LENGTH + datalen);
@@ -262,6 +262,7 @@ inline void Frame::setData(const void* data, size_t datalen)
 
 inline void Frame::setStatusWritten()
 {
+    /** just make sure next frame won't be wrongly read */
     getNextEntry()->status = JOURNAL_FRAME_STATUS_RAW;
     setStatus(JOURNAL_FRAME_STATUS_WRITTEN);
 }

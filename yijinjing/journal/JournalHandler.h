@@ -30,7 +30,7 @@ protected:
     PageProviderPtr page_provider;
     /** journals */
     vector<JournalPtr> journals;
-    /** current journal*/
+    /** current journal */
     JournalPtr curJournal;
 public:
     /** default constructor with outside page provider */

@@ -43,6 +43,7 @@ struct LFMarketDataField
     double      BidPrice1;                   // 申买价一
     int         BidVolume1;                  // 申买量一
     double      AskPrice1;                   // 申卖价一
+	int 		AskVolume1;                  // 申卖量一
     double   	BidPrice2;                   //申买价二
 	int      	BidVolume2;                  //申买量二
 	double   	AskPrice2;                   //申卖价二
@@ -242,7 +243,141 @@ struct LFQryPositionField
 
 struct LFRspPositionField
 {
-	
+	char_31 			InstrumentID;					//合约代码
+	int 				YdPosition;						//上日持仓
+	int 				Position;						//总持仓
+	char_11 			BrokerID;						//经济公司代码
+	char_19 			InvestorID;						//投资者代码
+	double 				PositionCost; 					//持仓成本
+	LfHedgeFlagType 	HedgeFlag;						//投资套保标志
+	LfPosiDirectionType PosiDirection; 	        		//持仓多空方向
+};
+
+struct LFInputOrderField
+{
+	char_11 					BrokerID;					//经济公司代码	
+	char_16 					UserID;						//用户代码
+	char_19 					InvestorID;             	//投资者代码
+	char_21 					BusinessUnit;               //业务单元
+	char_9 						ExchangeID; 				//交易所代码
+	char_31 					InstrumentID; 				//合约代码
+	char_21 					OrderRef; 					//报单引用
+	double 						LimitPrice;                 //价格
+	int 						Volume;                     //数量
+	int 						MinVolume;                  //最小成交量
+	LfTimeConditionType     	TimeCondition;              //有效期类型
+	LfVolumeConditionType   	VolumeCondition;            //成交量类型
+	LfOrderPriceTypeType    	OrderPriceType;             //报单价格条件
+	LfDirectionType         	Direction;                  //买卖方向
+	LfOffsetFlagType        	OffsetFlag;                 //开平标志
+	LfHedgeFlagType         	HedgeFlag;                  //投机套保标志
+	LfForceCloseReasonType  	ForceCloseReason;           //强平原因
+	double                  	StopPrice;                  //止损价
+	int							IsAutoSuspend;              //自动挂起标志
+	LfContingentConditionType 	ContingentCondition;      	//触发条件
+	char_30 					MiscInfo;    				//委托自定义标签
+};
+
+struct LFRtnOrderField
+{
+	char_11 					BrokerID;					//经纪公司代码
+	char_16 					UserID;						//用户代码
+	char_11 					ParticipantID; 				//会员代码
+	char_19 					InvestorID; 				//投资者代码
+	char_21 					BusinessUnit;               //业务单元
+	char_31						InstrumentID; 				//合约代码
+	char_21						OrderRef; 					//报单引用
+	char_11 					ExchangeID; 				//交易所代码
+	double 						LimitPrice;                 //价格
+	int 						VolumeTraded;               //今成交数量
+	int 						VolumeTotal;        		//剩余数量
+	int 						VolumeTotalOriginal;        //数量
+	LfTimeConditionType 		TimeCondition; 				//有效期类型
+	LfVolumeConditionType		VolumeCondition; 			//成交量类型
+	LfOrderPriceTypeType 		OrderPriceType;				//报单价格条件
+	LfDirectionType 			Direction; 					//买卖方向
+	LfOffsetFlagType 			OffsetFlag; 				//开平标志
+	LfHedgeFlagType 			HedgeFlag;                  //投机套保标志
+	LfOrderStatusType 			OrderStatus; 				//报单状态
+	int 						RequestID;                  //请求编号
+};
+
+struct LFRtnTradeField
+{
+	char_11 					BrokerID;					//经纪公司代码
+	char_16 					UserID;						//用户代码
+	char_19                     InvestorID;                 //投资者代码
+	char_21 					BusinessUnit;               //业务单元
+	char_31 					InstrumentID; 				//合约代码
+	char_21 					OrderRef; 					//报单引用
+	char_11 					ExchangeID; 				//交易所代码
+	char_21 					TradeID; 					//成交编号
+	char_31 					OrderSysID; 				//报单编号
+	char_11 					ParticipantID; 				//会员代码	
+	char_21 					ClientID; 					//客户代码
+	double 						Price;                 		//成交价格
+	int 						Volume;               		//成交数量	
+	char_13                     TradingDay;                 //交易日
+	char_13                     TradeTime;                  //成交时间
+	LfDirectionType             Direction;                  //买卖方向
+	LfOffsetFlagType            OffsetFlag;                 //开平标志
+	LfHedgeFlagType             HedgeFlag;                  //投机套保标志				
+};
+
+struct LFOrderActionField
+{
+	char_11 					BrokerID;					//经纪公司代码
+	char_19 					InvestorID; 				//投资者代码
+	char_31 					InstrumentID; 				//合约代码
+	char_11                     ExchangeID;                 //交易所代码
+	char_16                     UserID;                     //用户代码
+	char_21                     OrderRef; 					//报单引用
+	char_31 					OrderSysID;					//报单编号
+	int 						RequestID;                  //请求编号
+	char                        ActionFlag;                 //操作标志
+	double						LimitPrice;                 //价格
+	int 						VolumeChange;               //数量变化
+	int 						KfOrderID;        			//Kf系统内订单ID
+};
+
+struct LFQryAccountField
+{
+	char_11 	BrokerID;             //经纪公司代码
+	char_19 	InvestorID;           //投资者代码
+};
+
+struct LFRspAccountField
+{
+	char_11 	BrokerID;             //经纪公司代码
+	char_19 	InvestorID;           //投资者代码
+	double 		PreMortgage;          //上次质押金额
+	double 		PreCredit;            //上次信用额度
+	double      PreDeposit;           //上次存款金额
+	double 		PreBalance;           //上次结算准备金
+	double 		PreMargin;            //上次占用的保证金
+	double 		Deposit;      		  //入金金额
+	double 		Withdraw;      		  //出金金额
+	double 		FrozenMargin;         //冻结的保证金（报单未成交冻结的保证金）
+	double 		FrozenCash;           //冻结的资金(报单未成交冻结的资金)
+	double 		FrozenCommission;     //冻结的手续费 (报单未成交冻结的手续费)
+	double 		CurrMargin;           //当前保证金总额
+	double      CashIn;               //资金差额
+	double      Commission;           //手续费
+	double      CloseProfit;          //平仓盈亏
+	double      PositionProfit;       //持仓盈亏
+	double      Balance;              //结算准备金
+	double      Available;            //可用资金
+	double      WithdrawQuota;        //可取资金
+	double      Reserve;              //基本准备金
+	char_9      TradingDay;           //交易日
+	double      Credit;               //信用额度
+	double      Mortgage;             //质押金
+	double      ExchangeMargin;       //交易所保证金
+	double      DeliveryMargin;       //投资者交割保证金
+	double      ExchangeDeliverMargin;//交易所交割保证金
+	double      ReserveBalance;       //保底期货结算准备金
+	double      Equity;               //当日权益
+	double      MarketValue;          //账户市值
 };
 
 #endif

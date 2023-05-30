@@ -50,7 +50,8 @@ private:
  * util function to utilize NanoTimer
  * @return current nano time in long (unix-timestamp * 1e9 + nano-part)
 */
-inline long getNanoTime() {
+inline long getNanoTime() 
+{
     return NanoTimer::getInstance()->getNano();
 }
 
@@ -59,8 +60,52 @@ inline long getNanoTime() {
  * @param _tm ctime struct
  * @return nano time in long
  */
-inline long parseTm(struct tm _tm) {
+inline long parseTm(struct tm _tm) 
+{
     return timelocal(&_tm) * NANOSECONDS_PER_SECOND;
 }
+
+/**
+ * parse string time to nano time
+ * @param timeStr string-formatted time
+ * @param format eg: %Y%m%d-%H:%M:%S
+ * @return nano time in long
+*/
+inline long parseTime(const char* timeStr, const char* format)
+{
+    struct tm _tm;
+    strptime(timeStr, format, &_tm);
+    return parseTm(_tm);
+}
+
+/**
+ * dump long time to string with format
+ * @param _nano nano time in long
+ * @param format eg: %Y%m%d-%H:%M:%S
+ * @return string-formatted time
+*/
+inline string parseNano(long nano, const char* format)
+{
+    if (nano <= 0)
+        return string("NULL");
+    nano /= NANOSECONDS_PER_SECOND;
+    struct tm * dt;
+    char buffer[30];
+    dt = localtime(&nano);
+    strftime(buffer, sizeof(buffer), format, dt);
+    return string(buffer);
+}
+
+/**
+ * dump long time to struct tm
+ * @param nano nano time in long
+ * @return ctime struct
+*/
+inline struct tm parseNano(long nano)
+{
+    time_t sec_num = nano / NANOSECONDS_PER_SECOND;
+    return *localtime(&sec_num);
+}
+
 YJJ_NAMESPACE_END
 #endif // YIJINJING_TIMER_H

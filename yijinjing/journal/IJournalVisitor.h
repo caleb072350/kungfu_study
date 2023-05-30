@@ -14,7 +14,8 @@ class IJournalVisitor
 {
 public:
     virtual void visit(const string& name, Frame& frame) = 0;
-}
+};
+
 YJJ_NAMESPACE_END
 
 #endif // PROJECT_IJOURNALVISITOR_H
